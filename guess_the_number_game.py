@@ -8,7 +8,7 @@ n = random.randint(a+1, b-1)
 def game_loop():
     print("Player 1's turn:")
     i = 1
-    global n
+    global n # by global keyword you can change the global variable
     while i:
         num = int(input(f"Please guess the number between {a} and {b}\n"))
         if num > n:
