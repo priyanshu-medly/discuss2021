@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int paintersFeasible(int boards[], int limit, int n){
+    int painters = 1, sum = 0;
+    for(int i=0; i<n; i++){
+        sum += boards[i];
+        if(sum > limit){
+            sum = boards[i];
+            painters++;
+        }
+    }
+    return painters;
+}
+
+int partition(int boards[], int n, int m){
+    int totalLength = 0, k = 0;
+    for(int i=0; i<n; i++){
+        k = max(k, boards[i]);
+        totalLength += boards[i];
+    }
+
+    int lo = k, hi = totalLength;
+    while(lo < hi){
+        int mid = (lo + hi) >> 1;
+        int painters = paintersFeasible(boards, mid, n);
+
+        if(painters <= m){
+            hi = mid;
+        }
+        else{
+            lo = mid + 1;
+        }
+    }
+    return lo;
+}
+
+int main(){
+    int boards[] = {10, 20, 30, 40};
+    int n = 4, m = 2;
+
+    cout << partition(boards, n, m) << endl;
+}
